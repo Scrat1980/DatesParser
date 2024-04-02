@@ -1,5 +1,16 @@
 <?php
 declare(strict_types=1);
+
+namespace Simply\Parser;
+
+use Exception;
+use Simply\Day\Day;
+use Simply\Time\Time;
+use Simply\Entity\Entity;
+use Simply\Entity\EntityFormatter;
+use Simply\Entity\EntityValidator;
+use Simply\Printer\Printer;
+
 class Parser
 {
     const BREAK = 'перерыв';
@@ -12,6 +23,7 @@ class Parser
     {
         $this->validator = new ParserValidator();
     }
+
     public function process($inputEntityTimetable): Entity
     {
         $this->validator->validate(
@@ -33,8 +45,7 @@ class Parser
         $workDayTo = null;
         preg_match('/' . self::DASH . '/', $workDays)
             ? list($workDayFrom, $workDayTo) = preg_split('/' . self::DASH . '/', $workDays)
-            : $workDayFrom = $workDays
-        ;
+            : $workDayFrom = $workDays;
         list($workTimeFrom, $workTimeTo) = preg_split(
             '/' . self::TO . '/',
             $workTime
@@ -42,11 +53,11 @@ class Parser
         list(
             $workTimeFromHours,
             $workTimeFromMinutes
-        ) = $this->splitTime($workTimeFrom);
+            ) = $this->splitTime($workTimeFrom);
         list(
             $workTimeToHours,
             $workTimeToMinutes
-        ) = $this->splitTime($workTimeTo);
+            ) = $this->splitTime($workTimeTo);
 
         list($lunchTimeFrom, $lunchTimeTo) = preg_split(
             '/' . self::TO . '/',
@@ -55,12 +66,12 @@ class Parser
         list(
             $lunchTimeFromHours,
             $lunchTimeFromMinutes
-        ) = $this->splitTime($lunchTimeFrom);
+            ) = $this->splitTime($lunchTimeFrom);
 
         list(
             $lunchTimeToHours,
             $lunchTimeToMinutes
-        ) = $this->splitTime($lunchTimeTo);
+            ) = $this->splitTime($lunchTimeTo);
 
         try {
             $entity = new Entity(
@@ -101,16 +112,16 @@ class Parser
                 $time,
                 $timeArray
             );
-            $minutes = (int) $timeArray[0][1];
+            $minutes = (int)$timeArray[0][1];
         } else {
             preg_match_all(
                 '/\d/',
                 $time,
                 $timeArray
             );
-            $minutes = (int) ($timeArray[0][1] . $timeArray[0][2]);
+            $minutes = (int)($timeArray[0][1] . $timeArray[0][2]);
         }
-        $hours = (int) $timeArray[0][0];
+        $hours = (int)$timeArray[0][0];
 
         return [$hours, $minutes];
     }

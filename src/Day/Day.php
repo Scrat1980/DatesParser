@@ -1,5 +1,10 @@
 <?php
 declare(strict_types=1);
+
+namespace Simply\Day;
+
+use Exception;
+
 class Day
 {
     private $validator;

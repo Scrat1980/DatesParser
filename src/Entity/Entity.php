@@ -1,5 +1,13 @@
 <?php
 declare(strict_types=1);
+
+namespace Simply\Entity;
+
+use Exception;
+use Simply\Day\Day;
+use Simply\Time\Time;
+use Simply\Printer\IPrinter;
+
 class Entity
 {
     private IEntityValidator $entityValidator;
@@ -24,13 +32,13 @@ class Entity
     public function __construct(
         IEntityValidator $entityValidator,
         IEntityFormatter $entityFormatter,
-        IPrinter $printer,
-        Day $startDay,
-        Day $endDay,
-        Time $startTimeWork,
-        Time $endTimeWork,
-        Time $startTimeBreak,
-        Time $endTimeBreak
+        IPrinter         $printer,
+        Day              $startDay,
+        Day              $endDay,
+        Time             $startTimeWork,
+        Time             $endTimeWork,
+        Time             $startTimeBreak,
+        Time             $endTimeBreak
     )
     {
         $this->entityValidator = $entityValidator;

@@ -1,5 +1,10 @@
 <?php
 declare(strict_types=1);
+
+namespace Simply\Time;
+
+use Exception;
+
 class Time
 {
     private ITimeValidator $validator;
@@ -15,7 +20,7 @@ class Time
     public function __construct(int $hours, int $minutes)
     {
         $this->validator = new TimeValidator();
-        if (! $this->validator->validate($minutes, $hours)) {
+        if (!$this->validator->validate($minutes, $hours)) {
             throw new Exception('Trying to create a wrong time object');
         }
         $this->formatter = new TimeFormatter();

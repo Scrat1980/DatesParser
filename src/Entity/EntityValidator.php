@@ -1,8 +1,17 @@
 <?php
 declare(strict_types=1);
+
+namespace Simply\Entity;
+
+use Exception;
+use Simply\Day\Day;
+use Simply\Time\Time;
+use Simply\Parser\WeekDays;
+
 class EntityValidator implements IEntityValidator
 {
     private array $orderedDays;
+
     public function __construct()
     {
         $this->orderedDays = (new WeekDays())->weekDays;

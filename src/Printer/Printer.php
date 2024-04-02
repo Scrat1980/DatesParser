@@ -1,6 +1,7 @@
 <?php
-
 declare(strict_types=1);
+
+namespace Simply\Printer;
 
 class Printer implements IPrinter
 {

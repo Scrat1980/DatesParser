@@ -1,5 +1,10 @@
 <?php
 declare(strict_types=1);
+
+namespace Simply\Parser;
+
+use Exception;
+
 class ParserValidator
 {
     public array $validDays;
@@ -8,6 +13,7 @@ class ParserValidator
     {
         $this->validDays = (new WeekDays())->weekDays;
     }
+
     public function validate(
         string $timetable,
         string $break,
@@ -23,11 +29,10 @@ class ParserValidator
             . $days . $dash . '?' . $days . '?'
             . ' '
             . $hours . '\D+' . $break . $hours
-            . '/u'
-        ;
+            . '/u';
 
         try {
-            if (! preg_match($pattern, $timetable)) {
+            if (!preg_match($pattern, $timetable)) {
                 throw new Exception('Input data invalid');
             }
         } catch (Exception $e) {
